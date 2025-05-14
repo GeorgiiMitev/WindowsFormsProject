@@ -1,0 +1,11 @@
+C:\Users\User\Desktop\2401681062_Георги_Митев\SocialNetwork\SocialNetwork\bin\Debug\SocialNetwork.exe.config
+C:\Users\User\Desktop\2401681062_Георги_Митев\SocialNetwork\SocialNetwork\bin\Debug\SocialNetwork.exe
+C:\Users\User\Desktop\2401681062_Георги_Митев\SocialNetwork\SocialNetwork\bin\Debug\SocialNetwork.pdb
+C:\Users\User\Desktop\2401681062_Георги_Митев\SocialNetwork\SocialNetwork\obj\Debug\SocialNetwork.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\2401681062_Георги_Митев\SocialNetwork\SocialNetwork\obj\Debug\SocialNetwork.Properties.Resources.resources
+C:\Users\User\Desktop\2401681062_Георги_Митев\SocialNetwork\SocialNetwork\obj\Debug\SocialNetwork.registerPage.resources
+C:\Users\User\Desktop\2401681062_Георги_Митев\SocialNetwork\SocialNetwork\obj\Debug\SocialNetwork.socialPageForm.resources
+C:\Users\User\Desktop\2401681062_Георги_Митев\SocialNetwork\SocialNetwork\obj\Debug\SocialNetwork.csproj.GenerateResource.cache
+C:\Users\User\Desktop\2401681062_Георги_Митев\SocialNetwork\SocialNetwork\obj\Debug\SocialNetwork.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\2401681062_Георги_Митев\SocialNetwork\SocialNetwork\obj\Debug\SocialNetwork.exe
+C:\Users\User\Desktop\2401681062_Георги_Митев\SocialNetwork\SocialNetwork\obj\Debug\SocialNetwork.pdb
