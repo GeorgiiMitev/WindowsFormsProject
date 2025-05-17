@@ -18,7 +18,10 @@ namespace SocialNetwork
             InitializeComponent();
         }
 
-
+        private void registerPage_Load(object sender, EventArgs e)
+        {
+            validationError.Visible = false;
+        }
 
 
         private void registerButton_Click(object sender, EventArgs e)
@@ -93,25 +96,19 @@ namespace SocialNetwork
             string filePath = @"..\..\..\users.txt";
             File.AppendAllText(filePath, fullName.Text + "\n");
 
-
+            // Запазване на името в променлива, която прехвърляме към социалната мрежа
             string username = fullName.Text;
-            DateTime today = DateTime.Now;
-            DateTime dateToday = today;
-            socialPageForm socialPage = new socialPageForm(username, dateToday);
 
+            //Създаваме си формата за социална мрежа и подаваме 1 параметър за username
+            socialPageForm socialPage = new socialPageForm(username);
 
-            
-            
-
+            // Затваряне на формата за регистрация и отваряне на социалната мрежа
             this.Hide();
             socialPage.Show();
 
 
         }
 
-        private void registerPage_Load(object sender, EventArgs e)
-        {
-            validationError.Visible = false;
-        }
+
     }
 }

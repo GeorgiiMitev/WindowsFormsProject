@@ -12,33 +12,34 @@ using System.Reflection.Emit;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Label = System.Windows.Forms.Label;
 using System.IO;
+using System.Threading;
 
 namespace SocialNetwork
 {
     public partial class socialPageForm : Form
     {
-
-        private string username;
-        public socialPageForm(string username, DateTime dateToday)
+        // променлива в която ще запазим прехвърленото име
+        string username;
+        public socialPageForm(string username)
         {
             InitializeComponent();
             this.username = username;
-            userName.Text = username;
+            userName.Text = this.username;
+            DateTime dateToday = DateTime.Now;
             joinDateLabel.Text = dateToday.ToString("dd/MM/yyyy HH:mm") + " | " + userName.Text + " " + "has successfully created an account.";
         }
 
-        
 
-        int labelY = 0;
+
+
 
         private void socialPageForm_Load(object sender, EventArgs e)
         {
             wallTextBox.Text = "Write something...";
             wallTextBox.ForeColor = Color.Gray;
             wallTextBox.Enabled = false;
-            this.ActiveControl = null; // or labelTitle.Focus();
+            this.ActiveControl = null;
             wallTextBox.Enabled = true;
-            joinDateLabel.Focus();
 
             panel1.Visible = true;
             panel2.Visible = false;
@@ -47,7 +48,8 @@ namespace SocialNetwork
 
 
 
-
+            // Добавяме всички отделни линии текст(имената) в масив, след което го въртим
+            // за да проверим дали съдържа името на потребителя, и ако е така просто го премахваме.
             string filePath = @"..\..\..\users.txt";
             string[] friends = File.ReadAllLines(filePath);
             foreach (var friend in friends)
@@ -58,7 +60,7 @@ namespace SocialNetwork
                     listBoxFriends.Items.Remove(username);
                 }
             }
-            
+
 
         }
 
@@ -79,11 +81,12 @@ namespace SocialNetwork
                 wallTextBox.ForeColor = Color.Gray;
             }
         }
-
+        int labelY = 0;
         private void wallTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
+                e.SuppressKeyPress = true;
                 DateTime dateToday = DateTime.Now;
                 Label message = new Label();
                 message.Text = dateToday.ToString("dd/MM/yyyy HH:mm") + " | " + $"{username} wrote:" + " " + wallTextBox.Text;
@@ -110,6 +113,15 @@ namespace SocialNetwork
 
 
                 pictureBoxPFP.Image = new Bitmap(imagePath);
+
+                DateTime dateToday = DateTime.Now;
+                Label message = new Label();
+                message.Text = dateToday.ToString("dd/MM/yyyy HH:mm") + " | " + $"{username} changed their profile picture";
+                message.AutoSize = true;
+                message.Font = new Font("Microsoft Sans Serif", 9);
+                message.Location = new Point(0, labelY);
+                newPostsPanel.Controls.Add(message);
+                labelY += message.Height + 8;
             }
         }
         private void buttonChangeBackground_Click(object sender, EventArgs e)
@@ -121,6 +133,15 @@ namespace SocialNetwork
             {
                 string imagePath = openFileDialog.FileName;
                 pictureBoxBackgroundIMG.Image = new Bitmap(imagePath);
+
+                DateTime dateToday = DateTime.Now;
+                Label message = new Label();
+                message.Text = dateToday.ToString("dd/MM/yyyy HH:mm") + " | " + $"{username} changed their background.";
+                message.AutoSize = true;
+                message.Font = new Font("Microsoft Sans Serif", 9);
+                message.Location = new Point(0, labelY);
+                newPostsPanel.Controls.Add(message);
+                labelY += message.Height + 8;
             }
         }
 
@@ -177,13 +198,28 @@ namespace SocialNetwork
                 photo.Height = 200;
                 photo.Location = new Point(0, yPosition);
                 photoGalleryPanel.Controls.Add(photo);
-                yPosition += photo.Height + 25;
+                yPosition += photo.Height + 10;
             }
         }
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
-            listBoxFriends.Items.Add(textBoxSearch.Text);
+            if(textBoxSearch.Text == "Search for friends..." || textBoxSearch.Text == "")
+            {
+                return;
+            }
+            if (!listBoxFriends.Items.Contains(textBoxSearch.Text))
+            {
+                friendError.Visible = false;
+                listBoxFriends.Items.Add(textBoxSearch.Text);
+            }
+            else
+            {
+                friendError.Visible = true;
+                friendError.Text = $"{textBoxSearch.Text} is a friend.";
+               
+            }
+
         }
 
         private void textBoxSearch_Enter(object sender, EventArgs e)
@@ -207,7 +243,6 @@ namespace SocialNetwork
         private void buttonExit_Click(object sender, EventArgs e)
         {
             ActiveForm.Close();
-            ActiveForm.Dispose();
         }
 
         private void buttonLogout_Click(object sender, EventArgs e)
